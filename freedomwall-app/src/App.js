@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Components
 import Landingpage from './components/Landingpage';
-import Navbar from './components/Navbar';
+import NavbarComponent from './components/Navbar';
 import PostContent from './components/PostContent';
 import Stories from './components/Stories';
 import ReactHelmet from './components/ReactHelmet';
@@ -20,7 +20,7 @@ function App() {
 				<Toaster />
 				<div className="App">
 					<ReactHelmet />
-					<Navbar />
+					<NavbarComponent />
 
 					<Routes>
 						<Route path="/" element={<Landingpage />} />
