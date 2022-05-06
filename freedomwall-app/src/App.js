@@ -5,17 +5,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Components
 import Landingpage from './components/Landingpage';
 import Navbar from './components/Navbar';
+import PostContent from './components/PostContent';
+import Stories from './components/Stories';
+
 import { Context } from './Context/ContextAPI';
+
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
 	return (
-		<Context>
-			<Toaster />
-			<div className="App">
-				<Navbar />
-				<Landingpage />
-			</div>
-		</Context>
+		<Router>
+			<Context>
+				<Toaster />
+				<div className="App">
+					<Navbar />
+
+					<Routes>
+						<Route path="/" element={<Landingpage />} />
+						<Route path="/stories" element={<Stories />} />
+						<Route path="/post/:id" element={<PostContent />} />
+					</Routes>
+				</div>
+			</Context>
+		</Router>
 	);
 }
 

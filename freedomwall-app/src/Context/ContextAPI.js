@@ -29,8 +29,6 @@ hours = hours % 12;
 hours = hours ? hours : 12;
 minutes = minutes < 10 ? '0' + minutes : minutes;
 
-// For changing color
-
 // For posting
 export const PostContent = async (title, content, color) => {
 	if (title === '' || content === '') {
