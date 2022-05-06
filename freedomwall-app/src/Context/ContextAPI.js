@@ -29,6 +29,13 @@ hours = hours % 12;
 hours = hours ? hours : 12;
 minutes = minutes < 10 ? '0' + minutes : minutes;
 
+export function goToTop() {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth',
+	});
+}
+
 // For posting
 export const PostContent = async (title, content, color) => {
 	if (title === '' || content === '') {

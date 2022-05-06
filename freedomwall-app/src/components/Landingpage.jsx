@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Posts, PostContent } from '../Context/ContextAPI';
+import { Posts, PostContent, goToTop } from '../Context/ContextAPI';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
@@ -66,7 +66,7 @@ function Landingpage() {
 					</p>
 					{users.map((item) => {
 						return (
-							<Container key={item.id} className="col-sm-6 col-md-4 col-lg-3 ">
+							<Container key={item.id} className="col-sm-6 col-md-4 col-lg-3">
 								<Link
 									to={`/post/${item.id}`}
 									className="text-decoration-none text-dark d-flex"
@@ -74,6 +74,7 @@ function Landingpage() {
 									<Card
 										className={`p-3 mt-2 w-100 border border-${item.color}`}
 										style={{ height: '250px' }}
+										onClick={() => goToTop()}
 									>
 										{item.title.length > 30 ? (
 											<h5 className="fw-bold">{item.title.substr(0, 30)}...</h5>

@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-
-import { Posts } from '../Context/ContextAPI';
+import { Posts, goToTop } from '../Context/ContextAPI';
 
 function Stories() {
 	const [users] = useContext(Posts);
@@ -23,6 +22,7 @@ function Stories() {
 								<Card
 									className={`p-3 mt-2 w-100 border border-${item.color}`}
 									style={{ height: '250px' }}
+									onClick={() => goToTop()}
 								>
 									{item.title.length > 30 ? (
 										<h5 className="fw-bold">{item.title.substr(0, 30)}...</h5>

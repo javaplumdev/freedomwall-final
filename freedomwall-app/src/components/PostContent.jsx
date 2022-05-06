@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Posts } from '../Context/ContextAPI';
+import { Posts, goToTop } from '../Context/ContextAPI';
 import { Container, Card } from 'react-bootstrap';
 
 function PostContent() {
@@ -8,7 +8,6 @@ function PostContent() {
 	const [users] = useContext(Posts);
 
 	const filtered = users.filter((item) => item.id !== id);
-
 	const limitedFilter = filtered.slice(0, 3);
 
 	return (
@@ -34,10 +33,12 @@ function PostContent() {
 							<Link
 								to={`/post/${item.id}`}
 								className="text-decoration-none text-dark d-flex"
+								key={item.id}
 							>
 								<Card
 									className={`p-3 mt-2 w-100 border border-${item.color}`}
 									style={{ height: '250px' }}
+									onClick={() => goToTop()}
 								>
 									<div className="mt-4 " key={item.id}>
 										<h5 className="fw-bold">{item.title}</h5>
