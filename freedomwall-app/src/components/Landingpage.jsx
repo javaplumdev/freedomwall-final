@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Posts } from '../Context/ContextAPI';
 import { PostContent } from '../Context/ContextAPI';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 import {
 	Container,
@@ -23,6 +24,13 @@ function Landingpage() {
 	// Getting datas from user inputs
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
+
+	// State color value holder
+	const [color, setColor] = useState('');
+
+	function changeColor(color) {
+		setColor(color);
+	}
 
 	return (
 		<>
@@ -51,10 +59,16 @@ function Landingpage() {
 						return (
 							<Container
 								key={item.id}
-								className="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch"
+								className="col-sm-6 col-md-4 col-lg-3 d-flex "
+								style={{ height: '250px' }}
 							>
-								<Card className="p-3 mt-2">
-									<h4 className="fw-bold">{item.title}</h4>
+								<Card className={`p-3 mt-2 w-100 border border-${item.color}`}>
+									{item.title.length > 30 ? (
+										<h5 className="fw-bold">{item.title.substr(0, 30)}...</h5>
+									) : (
+										<h5 className="fw-bold">{item.title}</h5>
+									)}
+
 									<small className="mb-3 text-secondary">
 										{item.dateAndTime}
 									</small>
@@ -90,7 +104,7 @@ function Landingpage() {
 						className="mb-3"
 						onChange={(e) => setTitle(e.target.value)}
 					>
-						<Form.Control type="text" />
+						<Form.Control type="text" requred="true" />
 					</FloatingLabel>
 					<FloatingLabel
 						controlId="floatingTextarea2"
@@ -100,14 +114,50 @@ function Landingpage() {
 						<Form.Control
 							as="textarea"
 							style={{ height: '100px', resize: 'none' }}
+							requred="true"
 						/>
 					</FloatingLabel>
+
+					<Dropdown className="mt-3">
+						<Dropdown.Toggle variant={color} className="w-100">
+							Pick a color
+						</Dropdown.Toggle>
+						<Dropdown.Menu>
+							<Dropdown.Item onClick={() => changeColor('danger')}>
+								Red
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('primary')}>
+								Blue
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('secondary')}>
+								Gray
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('success')}>
+								Green
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('warning')}>
+								Yellow
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('info')}>
+								Sky blue
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('dark')}>
+								Dark
+							</Dropdown.Item>
+							<Dropdown.Item onClick={() => changeColor('light')}>
+								White
+							</Dropdown.Item>
+						</Dropdown.Menu>
+					</Dropdown>
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="secondary" onClick={handleClose}>
 						Close
 					</Button>
-					<Button variant="dark" onClick={() => PostContent(title, content)}>
+					<Button
+						variant="dark"
+						onClick={() => PostContent(title, content, color)}
+					>
 						Post
 					</Button>
 				</Modal.Footer>

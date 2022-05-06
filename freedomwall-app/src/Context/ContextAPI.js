@@ -1,5 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { db } from '../firebase-file/firebase-config';
+import toast from 'react-hot-toast';
+
 import {
 	collection,
 	getDocs,
@@ -27,13 +29,22 @@ hours = hours % 12;
 hours = hours ? hours : 12;
 minutes = minutes < 10 ? '0' + minutes : minutes;
 
-export const PostContent = async (title, content) => {
-	await addDoc(usersCollectionReference, {
-		title: title,
-		content: content,
-		dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
-	});
-	window.location.reload();
+// For changing color
+
+// For posting
+export const PostContent = async (title, content, color) => {
+	if (title === '' || content === '') {
+		toast.error('Please enter some missing fields');
+	} else {
+		await addDoc(usersCollectionReference, {
+			title: title,
+			content: content,
+			color: color,
+			dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+		});
+		toast.success('Posted successfully!');
+		window.location.reload();
+	}
 };
 
 export function Context({ children }) {
