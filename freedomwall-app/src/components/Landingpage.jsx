@@ -35,7 +35,7 @@ function Landingpage() {
 
 	return (
 		<>
-			<img
+			{/* <img
 				className="img-fluid"
 				src="https://document-export.canva.com/rymJU/DAE_61rymJU/1/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20220505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220505T211238Z&X-Amz-Expires=58828&X-Amz-Signature=bf65cd0cdbdd118db525d5cccf30d7bb9279bf44b26fd1ad6e6206befddd2cb6&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2006%20May%202022%2013%3A33%3A06%20GMT"
 				alt="story image"
@@ -45,7 +45,11 @@ function Landingpage() {
 					width: '100%',
 					backgroundSize: 'contain',
 				}}
-			/>
+			/> */}
+			<div className="text-center my-5 py-5">
+				<h1 className="display-5 fw-bold">Got a story to tell?</h1>
+				<p className="lead">Share your story anonymously</p>
+			</div>
 
 			<Container>
 				<div className="row justify-content-center">

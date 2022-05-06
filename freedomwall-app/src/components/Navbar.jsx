@@ -5,7 +5,7 @@ import { isChecked } from '../Context/ContextAPI';
 
 function Navbar() {
 	return (
-		<nav className="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+		<nav className="navbar navbar-expand-sm navbar-dark bg-dark sticky-bottom">
 			<div className="container">
 				<Link className="navbar-brand" to="/">
 					FreedomWall

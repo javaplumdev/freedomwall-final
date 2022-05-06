@@ -7,6 +7,7 @@ import Landingpage from './components/Landingpage';
 import Navbar from './components/Navbar';
 import PostContent from './components/PostContent';
 import Stories from './components/Stories';
+import ReactHelmet from './components/ReactHelmet';
 
 import { Context } from './Context/ContextAPI';
 
@@ -18,6 +19,7 @@ function App() {
 			<Context>
 				<Toaster />
 				<div className="App">
+					<ReactHelmet />
 					<Navbar />
 
 					<Routes>
