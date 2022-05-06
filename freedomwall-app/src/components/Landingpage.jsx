@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Posts } from '../Context/ContextAPI';
+import { PostContent } from '../Context/ContextAPI';
 
 import {
 	Container,
@@ -23,12 +24,14 @@ function Landingpage() {
 	const [title, setTitle] = useState('');
 	const [content, setContent] = useState('');
 
-	const PostContent = useContext(Posts);
-
 	return (
 		<>
 			<Container>
 				<div className="row justify-content-center mb-3 mt-5">
+					<h1 className="text-center my-5 py-5">
+						Share your stories here anonymously..
+					</h1>
+
 					<div className="col-md-8 justify-content-center">
 						<Button
 							variant="dark"
@@ -41,15 +44,28 @@ function Landingpage() {
 				</div>
 
 				<div className="row">
+					<p className="lead text-center mt-3">
+						There are {users.length} posts found.
+					</p>
 					{users.map((item) => {
 						return (
-							<Container key={item.id} className="col-md-8">
+							<Container
+								key={item.id}
+								className="col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch"
+							>
 								<Card className="p-3 mt-2">
-									<div className="d-flex justify-content-between align-items-center">
-										<h4 className="font-weight-bold">{item.title}</h4>
-										<small>Date posted</small>
-									</div>
-									<p className="lead text-secondary">{item.content}</p>
+									<h4 className="fw-bold">{item.title}</h4>
+									<small className="mb-3 text-secondary">
+										{item.dateAndTime}
+									</small>
+
+									{item.content.length > 100 ? (
+										<p className=" text-secondary">
+											{item.content.substr(0, 100)}...
+										</p>
+									) : (
+										<p className=" text-secondary">{item.content}</p>
+									)}
 								</Card>
 							</Container>
 						);
