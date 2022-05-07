@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { db } from '../firebase-file/firebase-config';
 import toast from 'react-hot-toast';
+import { serverTimestamp, doc, setDoc } from 'firebase/firestore';
 
 import {
 	collection,
@@ -46,6 +47,7 @@ export const PostContent = async (title, content, color) => {
 			content: content,
 			color: color,
 			dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
+			timestamp: serverTimestamp(),
 		});
 		toast.success('Posted successfully!');
 		window.location.reload();
