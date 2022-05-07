@@ -1,7 +1,7 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { db } from '../firebase-file/firebase-config';
 import toast from 'react-hot-toast';
-import { serverTimestamp, doc, setDoc } from 'firebase/firestore';
+import { serverTimestamp } from 'firebase/firestore';
 
 import {
 	collection,
@@ -60,7 +60,7 @@ export function Context({ children }) {
 	useEffect(() => {
 		const getUsers = async () => {
 			const data = await getDocs(
-				query(usersCollectionReference, orderBy('dateAndTime', 'desc'))
+				query(usersCollectionReference, orderBy('timestamp', 'desc'))
 			);
 
 			setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
