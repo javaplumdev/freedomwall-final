@@ -8,7 +8,14 @@ function PostContent() {
 	const [users] = useContext(Posts);
 
 	const filtered = users.filter((item) => item.id !== id);
-	const limitedFilter = filtered.slice(0, 3);
+
+	function getMultipleRandom(arr, num) {
+		const shuffled = [...arr].sort(() => 0.5 - Math.random());
+
+		return shuffled.slice(0, num);
+	}
+
+	const discover = getMultipleRandom(filtered, 3);
 
 	return (
 		<Container>
@@ -28,7 +35,7 @@ function PostContent() {
 				</div>
 				<div className="col-md-4 mt-5 pt-4">
 					<h3 className="mb-3">Discover some stories</h3>
-					{limitedFilter.map((item) => {
+					{discover.map((item) => {
 						return (
 							<Link
 								to={`/post/${item.id}`}

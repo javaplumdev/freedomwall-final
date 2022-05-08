@@ -37,14 +37,27 @@ export function goToTop() {
 	});
 }
 
+const CHAR = '*';
+const BANNED = ['tangina', 'burat', 'stupid', 'tite'];
+
 // For posting
 export const PostContent = async (title, content, color) => {
-	if (title === '' || content === '') {
+	if (title === '' || content === '' || !content.trim() || !title.trim()) {
 		toast.error('Please enter some missing fields');
 	} else {
 		await addDoc(usersCollectionReference, {
-			title: title,
-			content: content,
+			title: title
+				.split(' ')
+				.map((word) =>
+					BANNED.includes(word.toLowerCase()) ? CHAR.repeat(word.length) : word
+				)
+				.join(' '),
+			content: content
+				.split(' ')
+				.map((word) =>
+					BANNED.includes(word.toLowerCase()) ? CHAR.repeat(word.length) : word
+				)
+				.join(' '),
 			color: color,
 			dateAndTime: `${dateToday} ${hours}:${minutes}${newformat}`,
 			timestamp: serverTimestamp(),

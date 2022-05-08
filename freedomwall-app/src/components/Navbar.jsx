@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Toggle from 'react-toggle';
-import { isChecked } from '../Context/ContextAPI';
+
 import { Container } from 'react-bootstrap';
 import { Navbar, NavItem, NavbarToggler, Collapse, Nav } from 'reactstrap';
 
