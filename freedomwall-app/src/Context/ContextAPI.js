@@ -38,7 +38,7 @@ export function goToTop() {
 }
 
 const CHAR = '*';
-const BANNED = ['tangina', 'burat', 'stupid', 'tite'];
+const BANNED = ['tangina', 'burat', 'stupid', 'tite', "puke"];
 
 // For posting
 export const PostContent = async (title, content, color) => {
