@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Posts, goToTop } from '../Context/ContextAPI';
 import { Container, Card } from 'react-bootstrap';
+import { FaThumbsUp } from 'react-icons/fa';
 
 function PostContent() {
 	const { id } = useParams();
@@ -53,6 +54,14 @@ function PostContent() {
 											{item.dateAndTime}
 										</small>
 										<p className=" text-secondary">{item.content}</p>
+										<div className="position-absolute bottom-0 d-flex">
+											<p className="align-items-center">
+												<FaThumbsUp
+													className={`FaThumbsUp text-${item.color}`}
+												/>{' '}
+												{item.likes}
+											</p>
+										</div>
 									</div>
 								</Card>
 							</Link>

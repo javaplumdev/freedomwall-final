@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Posts, PostContent, goToTop } from '../Context/ContextAPI';
+import { FaThumbsUp } from 'react-icons/fa';
 
+import { db } from '../firebase-file/firebase-config';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
-import { ThumbUpIcon } from '@mui/icons-material';
 
 import {
 	Container,
@@ -30,23 +31,21 @@ function Landingpage() {
 	// State color value holder
 	const [color, setColor] = useState('');
 
+	// Is like
+	const [isLike, setIsLike] = useState(false);
+
 	function changeColor(color) {
 		setColor(color);
 	}
 
+	function incrementLike(id) {
+		db.collection('user-posts')
+			.doc(id)
+			.update({ likes: +1 });
+	}
+
 	return (
 		<>
-			{/* <img
-				className="img-fluid"
-				src="https://document-export.canva.com/rymJU/DAE_61rymJU/1/thumbnail/0001.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20220505%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220505T211238Z&X-Amz-Expires=58828&X-Amz-Signature=bf65cd0cdbdd118db525d5cccf30d7bb9279bf44b26fd1ad6e6206befddd2cb6&X-Amz-SignedHeaders=host&response-expires=Fri%2C%2006%20May%202022%2013%3A33%3A06%20GMT"
-				alt="story image"
-				style={{
-					height: '300px',
-					objectFit: 'cover',
-					width: '100%',
-					backgroundSize: 'contain',
-				}}
-			/> */}
 			<div className="text-center my-5 py-5">
 				<h1 className="display-5 fw-bold">Got a story to tell?</h1>
 				<p className="lead">Share your story anonymously</p>
@@ -78,7 +77,7 @@ function Landingpage() {
 								>
 									<Card
 										className={`p-3 mt-2 w-100 border border-${item.color}`}
-										style={{ height: '250px' }}
+										style={{ height: '275px' }}
 										onClick={() => goToTop()}
 									>
 										{item.title.length > 30 ? (
@@ -91,15 +90,25 @@ function Landingpage() {
 											{item.dateAndTime}
 										</small>
 
-										{item.content.length > 100 ? (
-											<p className=" text-secondary">
-												{item.content.substr(0, 100)}...
+										<div>
+											{item.content.length > 100 ? (
+												<p className=" text-secondary">
+													{item.content.substr(0, 100)}...
+												</p>
+											) : (
+												<p className="text-secondary">{item.content}</p>
+											)}
+										</div>
+										<div className="position-absolute bottom-0 d-flex ">
+											<p className="align-items-center">
+												<FaThumbsUp
+													className={`FaThumbsUp text-${item.color}`}
+													onClick={() => incrementLike(item.id)}
+												/>{' '}
+												{item.likes}
 											</p>
-										) : (
-											<p className=" text-secondary">{item.content}</p>
-										)}
+										</div>
 									</Card>
-									<ThumbUpIcon />
 								</Link>
 							</Container>
 						);
@@ -163,9 +172,6 @@ function Landingpage() {
 							</Dropdown.Item>
 							<Dropdown.Item onClick={() => changeColor('dark')}>
 								Dark
-							</Dropdown.Item>
-							<Dropdown.Item onClick={() => changeColor('light')}>
-								White
 							</Dropdown.Item>
 						</Dropdown.Menu>
 					</Dropdown>

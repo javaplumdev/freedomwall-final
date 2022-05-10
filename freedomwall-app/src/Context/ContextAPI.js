@@ -1,7 +1,6 @@
 import React, { useState, useEffect, createContext } from 'react';
 import { db } from '../firebase-file/firebase-config';
 import toast from 'react-hot-toast';
-import { serverTimestamp } from 'firebase/firestore';
 
 import {
 	collection,
@@ -9,6 +8,8 @@ import {
 	addDoc,
 	query,
 	orderBy,
+	doc,
+	serverTimestamp,
 } from 'firebase/firestore';
 
 export const Posts = createContext();
@@ -38,7 +39,7 @@ export function goToTop() {
 }
 
 const CHAR = '*';
-const BANNED = ['tangina', 'burat', 'stupid', 'tite', "puke"];
+const BANNED = ['tangina', 'burat', 'stupid', 'tite', 'puke'];
 
 // For posting
 export const PostContent = async (title, content, color) => {

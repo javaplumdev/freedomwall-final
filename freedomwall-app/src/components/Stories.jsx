@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { Container, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Posts, goToTop } from '../Context/ContextAPI';
+import { FaThumbsUp } from 'react-icons/fa';
 
 function Stories() {
 	const [users] = useContext(Posts);
@@ -21,7 +22,7 @@ function Stories() {
 							>
 								<Card
 									className={`p-3 mt-2 w-100 border border-${item.color}`}
-									style={{ height: '250px' }}
+									style={{ height: '275px' }}
 									onClick={() => goToTop()}
 								>
 									{item.title.length > 30 ? (
@@ -41,6 +42,23 @@ function Stories() {
 									) : (
 										<p className=" text-secondary">{item.content}</p>
 									)}
+									<div className="position-absolute bottom-0 d-flex">
+										{item.likes > 1 ? (
+											<p>
+												<FaThumbsUp
+													className={`FaThumbsUp text-${item.color}`}
+												/>{' '}
+												{item.likes}
+											</p>
+										) : (
+											<p>
+												<FaThumbsUp
+													className={`FaThumbsUp text-${item.color}`}
+												/>{' '}
+												{item.likes}
+											</p>
+										)}
+									</div>
 								</Card>
 							</Link>
 						</Container>
