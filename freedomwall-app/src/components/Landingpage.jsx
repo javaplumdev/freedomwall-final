@@ -3,6 +3,7 @@ import { Posts, PostContent, goToTop } from '../Context/ContextAPI';
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
+import { ThumbUpIcon } from '@mui/icons-material';
 
 import {
 	Container,
@@ -98,6 +99,7 @@ function Landingpage() {
 											<p className=" text-secondary">{item.content}</p>
 										)}
 									</Card>
+									<ThumbUpIcon />
 								</Link>
 							</Container>
 						);
