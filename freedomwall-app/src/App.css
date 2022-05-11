@@ -13,4 +13,5 @@
 .FaThumbsUp:hover {
 	transition: 0.1s ease-in;
 	font-size: 24px;
+	cursor: pointer;
 }

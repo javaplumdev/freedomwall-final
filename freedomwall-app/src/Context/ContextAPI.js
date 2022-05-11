@@ -10,6 +10,7 @@ import {
 	orderBy,
 	doc,
 	serverTimestamp,
+	setDoc,
 } from 'firebase/firestore';
 
 export const Posts = createContext();

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Posts, PostContent, goToTop } from '../Context/ContextAPI';
 import { FaThumbsUp } from 'react-icons/fa';
-
+import { doc, updateDoc, setDoc } from 'firebase/firestore';
 import { db } from '../firebase-file/firebase-config';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link } from 'react-router-dom';
@@ -31,17 +31,26 @@ function Landingpage() {
 	// State color value holder
 	const [color, setColor] = useState('');
 
-	// Is like
-	const [isLike, setIsLike] = useState(false);
-
 	function changeColor(color) {
 		setColor(color);
 	}
 
-	function incrementLike(id) {
-		db.collection('user-posts')
-			.doc(id)
-			.update({ likes: +1 });
+	function incrementLike(id, likes, isLike) {
+		const handler = !isLike;
+
+		if (handler) {
+			const userDoc = doc(db, 'user-posts', id);
+			const fieldContainer = { likes: likes + 1, isLike: !isLike };
+			updateDoc(userDoc, fieldContainer);
+		} else {
+			if (likes > 0) {
+				const userDoc = doc(db, 'user-posts', id);
+				const fieldContainer = { likes: likes - 1, isLike: !isLike };
+				updateDoc(userDoc, fieldContainer);
+			} else {
+				return 0;
+			}
+		}
 	}
 
 	return (
@@ -71,45 +80,47 @@ function Landingpage() {
 					{users.map((item) => {
 						return (
 							<Container key={item.id} className="col-sm-6 col-md-4 col-lg-3">
-								<Link
-									to={`/post/${item.id}`}
-									className="text-decoration-none text-dark d-flex"
+								<Card
+									className={`p-3 mt-2 w-100 border border-${item.color}`}
+									style={{ height: '275px' }}
+									onClick={() => goToTop()}
 								>
-									<Card
-										className={`p-3 mt-2 w-100 border border-${item.color}`}
-										style={{ height: '275px' }}
-										onClick={() => goToTop()}
+									<Link
+										to={`/post/${item.id}`}
+										className="text-decoration-none text-dark d-flex"
 									>
 										{item.title.length > 30 ? (
 											<h5 className="fw-bold">{item.title.substr(0, 30)}...</h5>
 										) : (
 											<h5 className="fw-bold">{item.title}</h5>
 										)}
+									</Link>
 
-										<small className="mb-3 text-secondary">
-											{item.dateAndTime}
-										</small>
+									<small className="mb-3 text-secondary">
+										{item.dateAndTime}
+									</small>
 
-										<div>
-											{item.content.length > 100 ? (
-												<p className=" text-secondary">
-													{item.content.substr(0, 100)}...
-												</p>
-											) : (
-												<p className="text-secondary">{item.content}</p>
-											)}
-										</div>
-										<div className="position-absolute bottom-0 d-flex ">
-											<p className="align-items-center">
-												<FaThumbsUp
-													className={`FaThumbsUp text-${item.color}`}
-													onClick={() => incrementLike(item.id)}
-												/>{' '}
-												{item.likes}
+									<div>
+										{item.content.length > 100 ? (
+											<p className=" text-secondary">
+												{item.content.substr(0, 100)}...
 											</p>
-										</div>
-									</Card>
-								</Link>
+										) : (
+											<p className="text-secondary">{item.content}</p>
+										)}
+									</div>
+									<div className="position-absolute bottom-0 d-flex ">
+										<p className="align-items-center">
+											<FaThumbsUp
+												className={`FaThumbsUp text-${item.color}`}
+												onClick={() =>
+													incrementLike(item.id, item.likes, item.isLike)
+												}
+											/>{' '}
+											{item.likes}
+										</p>
+									</div>
+								</Card>
 							</Container>
 						);
 					})}
