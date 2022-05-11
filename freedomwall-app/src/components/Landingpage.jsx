@@ -43,7 +43,7 @@ function Landingpage() {
 			const fieldContainer = { likes: likes + 1, isLike: !isLike };
 			updateDoc(userDoc, fieldContainer);
 		} else {
-			if (likes > 0) {
+			if (handler === false) {
 				const userDoc = doc(db, 'user-posts', id);
 				const fieldContainer = { likes: likes - 1, isLike: !isLike };
 				updateDoc(userDoc, fieldContainer);
